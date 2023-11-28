@@ -15,11 +15,12 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository{
 	public CuentaBancaria seleccionar(String numero) {
 		for(CuentaBancaria c : base) {
 			if(c.getNumero().equals(numero)){
-				CuentaBancaria cta = new CuentaBancaria();
-				cta.setCedulaPropietario(c.getCedulaPropietario());
-				cta.setNumero(c.getNumero());
-				cta.setSaldo(c.getSaldo());
-				return cta;
+				//CuentaBancaria cta = new CuentaBancaria();
+				//cta.setCedulaPropietario(c.getCedulaPropietario());
+				//cta.setNumero(c.getNumero());
+				//cta.setSaldo(c.getSaldo());
+				//return cta;
+				return c;
 			}
 		}
 		
