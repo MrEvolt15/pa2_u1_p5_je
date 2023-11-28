@@ -15,7 +15,11 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository{
 	public CuentaBancaria seleccionar(String numero) {
 		for(CuentaBancaria c : base) {
 			if(c.getNumero().equals(numero)){
-				return c;
+				CuentaBancaria cta = new CuentaBancaria();
+				cta.setCedulaPropietario(c.getCedulaPropietario());
+				cta.setNumero(c.getNumero());
+				cta.setSaldo(c.getSaldo());
+				return cta;
 			}
 		}
 		
@@ -37,6 +41,7 @@ public class CuentaBancariaRepositoryImpl implements ICuentaBancariaRepository{
 
 	@Override
 	public void eliminar(String numero) {
+
 		base.remove(this.seleccionar(numero));
 		
 	}

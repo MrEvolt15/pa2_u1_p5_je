@@ -53,24 +53,28 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 		if(cO.getSaldo().compareTo(monto)==0||cO.getSaldo().compareTo(monto)==1){
 			cO.setSaldo(cO.getSaldo().subtract(monto));
 			this.bancariaRepository.actualizar(cO);
+			//6. Buscar Ca Destino
+			CuentaBancaria cD = this.bancariaRepository.seleccionar(numDestino);
+			//7. Consultar el saldo
+			//8. Sumar el monto
+			//9. Actualizar Cta Destino
+			cD.setSaldo(cD.getSaldo().add(monto));
+			this.bancariaRepository.actualizar(cD);
+			//10. Crear la transferencia
+			Transferencia transferencia = new Transferencia();
+			transferencia.setFecha(LocalDateTime.now());
+			transferencia.setMonto(monto);
+			transferencia.setNumero("00022");
+			transferencia.setOrigen(cO);
+			transferencia.setDestino(cD);
+		
+			this.iTransferenciaRepository.insertar(transferencia);
+			System.out.println("Transferenia realizada con exito !!");
+			
 		}else {
 			System.out.println("Saldo insuficiente!!");
 		}
-		//6. Buscar Ca Destino
-		CuentaBancaria cD = this.bancariaRepository.seleccionar(numDestino);
-		//7. Consultar el saldo
-		//8. Sumar el monto
-		//9. Actualizar Cta Destino
-		cD.setSaldo(cD.getSaldo().add(monto));
-		//10. Crear la transferencia
-		Transferencia transferencia = new Transferencia();
-		transferencia.setFecha(LocalDateTime.now());
-		transferencia.setMonto(monto);
-		transferencia.setNumero("00022");
-		transferencia.setOrigen(cO);
-		transferencia.setDestino(cD);
 		
-		this.iTransferenciaRepository.insertar(transferencia);
 	}
 
 }
