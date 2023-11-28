@@ -47,9 +47,9 @@ public class Transferencia {
 	}
 	@Override
 	public String toString() {
-		return "Transferencia [numero=" + numero + ", fecha=" + fecha + ", monto=" + monto + ", origen=" + origen + "]";
+		return "Transferencia [numero=" + numero + ", fecha=" + fecha + ", monto=" + monto + ", origen=" + origen
+				+ ", destino=" + destino + "]";
 	}
-	
-	
+
 
 }
