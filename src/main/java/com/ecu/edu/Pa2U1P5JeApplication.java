@@ -54,6 +54,9 @@ public class Pa2U1P5JeApplication implements CommandLineRunner{
 		
 		CuentaBancaria ctaDestino2 = this.bancariaService.buscar("5678");
 		System.out.println(ctaDestino2);
+		this.iTransferenciaService.realizar(BigDecimal.valueOf(50),"1234", "5678");
+		this.iTransferenciaService.realizar(BigDecimal.valueOf(30), "5678","1234");
+		
 	}
 
 }

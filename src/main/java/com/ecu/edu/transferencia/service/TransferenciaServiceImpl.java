@@ -2,14 +2,17 @@ package com.ecu.edu.transferencia.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ecu.edu.transferencia.repository.ICuentaBancariaRepository;
+import com.ecu.edu.transferencia.repository.ITransferenciaIndexadoRepository;
 import com.ecu.edu.transferencia.repository.ITransferenciaRepository;
 import com.ecu.edu.transferencia.repository.modelo.CuentaBancaria;
 import com.ecu.edu.transferencia.repository.modelo.Transferencia;
+import com.ecu.edu.transferencia.repository.modelo.TransferenciaIndexado;
 
 @Service
 public class TransferenciaServiceImpl implements ITransferenciaService {
@@ -18,6 +21,8 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 	private ITransferenciaRepository iTransferenciaRepository;
 	@Autowired
 	private ICuentaBancariaRepository bancariaRepository;
+	@Autowired
+	private ITransferenciaIndexadoRepository iTransferenciaIndexadoRepository;
 	
 	public Transferencia buscar(String numero) {
 		// TODO Auto-generated method stub
@@ -61,16 +66,28 @@ public class TransferenciaServiceImpl implements ITransferenciaService {
 			cD.setSaldo(cD.getSaldo().add(monto));
 			this.bancariaRepository.actualizar(cD);
 			//10. Crear la transferencia
+			/* 
 			Transferencia transferencia = new Transferencia();
 			transferencia.setFecha(LocalDateTime.now());
 			transferencia.setMonto(monto);
 			transferencia.setNumero("00022");
 			transferencia.setOrigen(cO);
 			transferencia.setDestino(cD);
-		
-			this.iTransferenciaRepository.insertar(transferencia);
+			*/
+			TransferenciaIndexado transferencia = new TransferenciaIndexado();
+			List<TransferenciaIndexado> base = this.iTransferenciaIndexadoRepository.selecTodo();
+			TransferenciaIndexado ti =base.get(base.size()-1);
+			Integer index = ti.getIndex();
+			transferencia.setIndex(index+1);
+			transferencia.setFecha(LocalDateTime.now());
+			transferencia.setMonto(monto);
+			transferencia.setNumero("00022");
+			transferencia.setOrigen(cO);
+			transferencia.setDestino(cD);
+			this.iTransferenciaIndexadoRepository.insertar(transferencia);
 			System.out.println("Transferenia realizada con exito !!");
-			
+
+			System.out.println(transferencia);
 		}else {
 			System.out.println("Saldo insuficiente!!");
 		}
