@@ -14,12 +14,27 @@ import com.ecu.edu.transferencia.service.ITransferenciaService;
 
 @SpringBootApplication
 public class Pa2U1P5JeApplication implements CommandLineRunner{
-
-	
-	@Autowired
-	private ICuentaBancariaService bancariaService;
+	//DI por atributo
 	@Autowired
 	private ITransferenciaService iTransferenciaService;
+	
+	/* DI por constructor
+	 * private ITransferenciaService iTransferenciaService;
+	@Autowired
+	public Pa2U1P5JeApplication(ITransferenciaService iTransferenciaService) {
+		// TODO Auto-generated constructor stub
+		this.iTransferenciaService =iTransferenciaService;
+	}
+	*/
+	/* DI por metodo (set)
+	@Autowired
+	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
+		this.iTransferenciaService = iTransferenciaService;
+	}
+	*/
+	@Autowired
+	private ICuentaBancariaService bancariaService;
+	
 	
 	
 	public static void main(String[] args) {
@@ -61,5 +76,7 @@ public class Pa2U1P5JeApplication implements CommandLineRunner{
 				this.bancariaService.depositar(BigDecimal.valueOf(20), "1234");
 				System.out.println(this.bancariaService.buscar("1234"));
 	}
+
+	
 
 }
