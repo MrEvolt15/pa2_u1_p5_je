@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class Producto {
 	
 	private String nombre;
-	private Integer stock;
+	private Integer stock=0;
 	private String codBarras;
 	
 	//SETS Y GETS

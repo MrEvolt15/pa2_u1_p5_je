@@ -1,39 +1,25 @@
 package com.ecu.edu;
 
-import java.math.BigDecimal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ecu.edu.transferencia.repository.modelo.CuentaBancaria;
-import com.ecu.edu.transferencia.repository.modelo.Transferencia;
-import com.ecu.edu.transferencia.service.ICuentaBancariaService;
-import com.ecu.edu.transferencia.service.ITransferenciaService;
+import com.ecu.edu.inventario.repository.modelo.Bodega;
+import com.ecu.edu.inventario.repository.modelo.Producto;
+import com.ecu.edu.inventario.service.IBodegaService;
+import com.ecu.edu.inventario.service.IInventarioService;
+import com.ecu.edu.inventario.service.IProductoService;
 
 @SpringBootApplication
 public class Pa2U1P5JeApplication implements CommandLineRunner{
-	//DI por atributo
-	@Autowired
-	private ITransferenciaService iTransferenciaService;
 	
-	/* DI por constructor
-	 * private ITransferenciaService iTransferenciaService;
 	@Autowired
-	public Pa2U1P5JeApplication(ITransferenciaService iTransferenciaService) {
-		// TODO Auto-generated constructor stub
-		this.iTransferenciaService =iTransferenciaService;
-	}
-	*/
-	/* DI por metodo (set)
+	private IProductoService iProductoService;
 	@Autowired
-	public void setiTransferenciaService(ITransferenciaService iTransferenciaService) {
-		this.iTransferenciaService = iTransferenciaService;
-	}
-	*/
+	private IBodegaService bodegaService;
 	@Autowired
-	private ICuentaBancariaService bancariaService;
+	private IInventarioService iInventarioService;
 	
 	
 	
@@ -43,38 +29,31 @@ public class Pa2U1P5JeApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		// 1. Crear las cuentas
-				CuentaBancaria ctaOrigen = new CuentaBancaria();
-				ctaOrigen.setCedulaPropietario("1724362106");
-				ctaOrigen.setNumero("1234");
-				ctaOrigen.setSaldo(new BigDecimal(100)); 
-				this.bancariaService.guardar(ctaOrigen);
-
-				CuentaBancaria ctaDestino = new CuentaBancaria();
-				ctaDestino.setCedulaPropietario("1724362114");
-				ctaDestino.setNumero("5678");
-				ctaDestino.setSaldo(new BigDecimal(200));
-				this.bancariaService.guardar(ctaDestino);
-
-				this.iTransferenciaService.realizar( new BigDecimal(20),"1234", "5678");
-
-				CuentaBancaria ctaOrigen1 = this.bancariaService.buscar("1234");
-				System.out.println(ctaOrigen1);
-				CuentaBancaria ctaDestino1 = this.bancariaService.buscar("5678");
-				System.out.println(ctaDestino1);
-				this.iTransferenciaService.realizar( new BigDecimal(50),"1234", "5678");
-				this.iTransferenciaService.realizar( new BigDecimal(10), "5678","1234");
-				
-				//COnstruir un reporte del estado de cuenta
-				int indice=0;
-				for(Transferencia t:this.iTransferenciaService.reporte()) {
-					indice++;
-					System.out.println(indice +": "+t);
-				}
-				System.out.println(this.bancariaService.buscar("1234"));
-				System.out.println(this.bancariaService.buscar("5678"));
-				this.bancariaService.depositar(BigDecimal.valueOf(20), "1234");
-				System.out.println(this.bancariaService.buscar("1234"));
+		Producto p = new Producto();
+		p.setCodBarras("2154sdf");
+		p.setNombre("HP 15 lap");
+		p.setStock(0);
+		
+		this.iProductoService.guardar(p);
+		Producto p2 = new Producto();
+		p2.setCodBarras("11446");
+		p2.setNombre("Teclado HP");
+		p2.setStock(0);
+		this.iProductoService.guardar(p2);
+		
+		Bodega b = new Bodega();
+		b.setCapacidad(15000);
+		b.setCodigo("78546521");
+		b.setDireccion("Mena Dos");
+		b.setNombre("Super Mena Dos");
+		this.bodegaService.guardar(b);
+		System.out.println(p);
+		System.out.println(p2);
+		System.out.println(b);
+		
+		this.iInventarioService.registrar("2154sdf", "78546521", 50);
+		this.iInventarioService.registrar("11446", "78546521", 100);
+		this.iInventarioService.registrar("2154sdf", "78546521", 20);
 	}
 
 	

@@ -1,0 +1,37 @@
+package com.ecu.edu.inventario.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ecu.edu.inventario.repository.IBodegaRepository;
+import com.ecu.edu.inventario.repository.modelo.Bodega;
+
+@Service
+public class BodegaServiceImpl implements IBodegaService{
+	@Autowired
+	private IBodegaRepository bodegaRepository;
+	@Override
+	public Bodega buscar(String codigo) {
+		// TODO Auto-generated method stub
+		return this.bodegaRepository.seleccionar(codigo);
+	}
+
+	@Override
+	public void guardar(Bodega bodega) {
+		// TODO Auto-generated method stub
+		this.bodegaRepository.insertar(bodega);
+	}
+
+	@Override
+	public void actualizar(Bodega bodega) {
+		// TODO Auto-generated method stub
+		this.bodegaRepository.actualizar(bodega);
+	}
+
+	@Override
+	public void borrar(String codigo) {
+		// TODO Auto-generated method stub
+		this.bodegaRepository.eliminar(codigo);
+	}
+
+}
