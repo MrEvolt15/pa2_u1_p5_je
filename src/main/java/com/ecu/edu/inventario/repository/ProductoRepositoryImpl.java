@@ -15,6 +15,7 @@ public class ProductoRepositoryImpl implements IProductoRepository {
 		for (Producto p : base) {
 			if (p.getCodBarras()== codBarras) {
 				Producto prod = new Producto();
+				prod.setCodBarras(p.getCodBarras());
 				prod.setNombre(p.getNombre());
 				prod.setStock(p.getStock());
 				return prod;

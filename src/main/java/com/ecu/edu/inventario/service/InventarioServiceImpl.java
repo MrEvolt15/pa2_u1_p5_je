@@ -1,6 +1,7 @@
 package com.ecu.edu.inventario.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,10 @@ public class InventarioServiceImpl implements IInventarioService{
 		this.iInventarioRepository.eliminar(codigo);
 	}
 
+	public static int getRandomInteger(int maximum, int minimum){
+        return ((int) (Math.random()*(maximum - minimum))) + minimum;
+    }
+
 	@Override
 	public void registrar(String codBarras, String codBodega, Integer stock) {
 		Bodega b = this.bodegaRepository.seleccionar(codBodega);
@@ -55,12 +60,19 @@ public class InventarioServiceImpl implements IInventarioService{
 		
 		Inventario i = new Inventario();
 		i.setBodega(b);
-		i.setCodigo("4157733");
+		Integer codigo = InventarioServiceImpl.getRandomInteger(100, 1000);
+		i.setCodigo(codigo.toString());
 		i.setFechaIngreso(LocalDateTime.now());
 		i.setProducto(p);
 		
 		this.iInventarioRepository.insertar(i);
 				
+	}
+
+	@Override
+	public List<Inventario> reporte() {
+		// TODO Auto-generated method stub
+		return this.iInventarioRepository.selecTodo();
 	}
 	
 }

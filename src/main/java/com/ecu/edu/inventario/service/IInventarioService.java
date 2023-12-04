@@ -1,5 +1,7 @@
 package com.ecu.edu.inventario.service;
 
+import java.util.List;
+
 import com.ecu.edu.inventario.repository.modelo.Inventario;
 
 public interface IInventarioService {
@@ -12,4 +14,6 @@ public interface IInventarioService {
 	public void borrar(String codigo);
 	
 	public void registrar(String codBarras,String codBodega,Integer stock );
+
+	public List<Inventario> reporte();
 }

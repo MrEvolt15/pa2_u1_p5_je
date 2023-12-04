@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.ecu.edu.inventario.repository.modelo.Bodega;
+import com.ecu.edu.inventario.repository.modelo.Inventario;
 import com.ecu.edu.inventario.repository.modelo.Producto;
 import com.ecu.edu.inventario.service.IBodegaService;
 import com.ecu.edu.inventario.service.IInventarioService;
@@ -54,6 +55,12 @@ public class Pa2U1P5JeApplication implements CommandLineRunner{
 		this.iInventarioService.registrar("2154sdf", "78546521", 50);
 		this.iInventarioService.registrar("11446", "78546521", 100);
 		this.iInventarioService.registrar("2154sdf", "78546521", 20);
+
+		for(Inventario i : this.iInventarioService.reporte()){
+			System.out.println(i);
+		}
+		
+
 	}
 
 	

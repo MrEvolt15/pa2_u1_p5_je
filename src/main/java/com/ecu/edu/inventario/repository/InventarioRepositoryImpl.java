@@ -55,4 +55,10 @@ public class InventarioRepositoryImpl implements IInventarioRepository {
 		base.remove(inv);
 	}
 
+	@Override
+	public List<Inventario> selecTodo() {
+		// TODO Auto-generated method stub
+		return base;
+	}
+
 }
